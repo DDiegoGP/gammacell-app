@@ -1,5 +1,4 @@
-"""Autenticación simple con hash SHA-256 almacenado en st.secrets."""
-import hashlib
+"""Autenticación simple con credenciales almacenadas en st.secrets."""
 import hmac
 import streamlit as st
 
@@ -7,15 +6,14 @@ import streamlit as st
 def _verify(username: str, password: str) -> bool:
     try:
         expected_user = st.secrets["auth"]["username"]
-        expected_hash = st.secrets["auth"]["password_hash"]
+        expected_pass = st.secrets["auth"]["password"]
     except Exception:
         st.error("⚠️ Secrets no configurados. "
                  "En local: revisa `.streamlit/secrets.toml`. "
                  "En Streamlit Cloud: configura los secrets en el dashboard.")
         return False
-    computed = hashlib.sha256(password.encode()).hexdigest()
-    user_ok = hmac.compare_digest(username, expected_user)
-    pass_ok = hmac.compare_digest(computed, expected_hash)
+    user_ok = hmac.compare_digest(username.strip(), expected_user.strip())
+    pass_ok = hmac.compare_digest(password, expected_pass)
     return user_ok and pass_ok
 
 
