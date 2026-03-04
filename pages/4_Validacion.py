@@ -1,5 +1,7 @@
 """Página de validación — comparación modelo vs. datos experimentales."""
 import streamlit as st
+from core.auth import require_auth
+require_auth()
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np

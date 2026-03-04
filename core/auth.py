@@ -8,8 +8,10 @@ def _verify(username: str, password: str) -> bool:
     try:
         expected_user = st.secrets["auth"]["username"]
         expected_hash = st.secrets["auth"]["password_hash"]
-    except KeyError:
-        st.error("⚠️ Secrets no configurados. Revisa `.streamlit/secrets.toml`.")
+    except Exception:
+        st.error("⚠️ Secrets no configurados. "
+                 "En local: revisa `.streamlit/secrets.toml`. "
+                 "En Streamlit Cloud: configura los secrets en el dashboard.")
         return False
     computed = hashlib.sha256(password.encode()).hexdigest()
     user_ok = hmac.compare_digest(username, expected_user)
@@ -24,6 +26,13 @@ def check_auth() -> bool:
 
     _show_login()
     return False
+
+
+def require_auth():
+    """Llamar al inicio de cada página. Redirige al login si no hay sesión."""
+    if not st.session_state.get("authenticated"):
+        st.switch_page("app.py")
+        st.stop()
 
 
 def logout():

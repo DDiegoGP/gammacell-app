@@ -1,5 +1,7 @@
 """Historial de irradiaciones — registro de sesión con exportación."""
 import streamlit as st
+from core.auth import require_auth
+require_auth()
 import pandas as pd
 import plotly.express as px
 from io import BytesIO

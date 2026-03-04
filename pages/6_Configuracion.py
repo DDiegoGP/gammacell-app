@@ -1,5 +1,7 @@
 """Configuración — edición de parámetros de calibración y modelo."""
 import streamlit as st
+from core.auth import require_auth
+require_auth()
 import numpy as np
 import os
 from datetime import datetime

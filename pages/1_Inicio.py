@@ -1,5 +1,7 @@
 """Página de inicio — estado del equipo y curva de decaimiento."""
 import streamlit as st
+from core.auth import require_auth
+require_auth()
 import plotly.graph_objects as go
 import numpy as np
 from datetime import datetime

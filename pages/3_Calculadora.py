@@ -1,5 +1,7 @@
 """Calculadora de tiempo de irradiación — dosis ↔ tiempo."""
 import streamlit as st
+from core.auth import require_auth
+require_auth()
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np

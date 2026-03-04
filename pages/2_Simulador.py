@@ -1,5 +1,7 @@
 """Página Simulador — mapa de dosis G(x,z) con Plotly."""
 import streamlit as st
+from core.auth import require_auth
+require_auth()
 import plotly.graph_objects as go
 import numpy as np
 from core.physics import calculate_dose_map, dose_stats, PHYSICS_DEFAULTS
