@@ -170,8 +170,12 @@ if G_exp is not None:
     st.markdown("---")
     st.markdown("### Comparación adicional con datos experimentales")
     G_exp = np.asarray(G_exp, dtype=float)
-    mask2 = ~np.isnan(G_exp) & ~np.isnan(G_mod_i)
-    if mask2.any():
-        diff2 = G_mod_i[mask2] - G_exp[mask2]
-        rmse2 = float(np.sqrt(np.mean(diff2**2)))
-        st.metric("RMSE vs. Experimental", f"{rmse2:.4f}")
+    if G_exp.shape == G_mod_i.shape:
+        mask2 = ~np.isnan(G_exp) & ~np.isnan(G_mod_i)
+        if mask2.any():
+            diff2 = G_mod_i[mask2] - G_exp[mask2]
+            rmse2 = float(np.sqrt(np.mean(diff2**2)))
+            st.metric("RMSE vs. Experimental", f"{rmse2:.4f}")
+    else:
+        st.caption(f"Mapa experimental con forma {G_exp.shape} — "
+                   "no coincide con la malla de referencia, se omite comparación directa.")

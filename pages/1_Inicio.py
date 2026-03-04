@@ -73,7 +73,7 @@ fig.add_vline(
 )
 
 # Zona de utilidad (> 1 Gy/min)
-fig.add_hrect(y0=0, y1=1.0, fillcolor="#EF535030", line_width=0,
+fig.add_hrect(y0=0, y1=1.0, fillcolor="rgba(239,83,80,0.12)", line_width=0,
               annotation_text="Tasa mínima útil (1 Gy/min)",
               annotation_position="bottom left",
               annotation_font_color="#EF5350")
